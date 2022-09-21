@@ -12,3 +12,4 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_subdirectory(oracle)
+add_subdirectory(adviser)
