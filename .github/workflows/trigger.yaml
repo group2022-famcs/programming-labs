@@ -4,8 +4,23 @@ on:
   pull_request_target:
 
 jobs:
+  infer_task_name:
+    name: Extract task name from branch name
+    runs-on: ubuntu-20.04
+    outputs:
+      task_name: ${{ steps.extractor.outputs.substring }}
+    steps:
+      - uses: bhowell2/github-substring-action@v1.0.0
+        id: extractor
+        with:
+          value: ${{ github.event.pull_request.head.ref }}
+          index_of_str: "submit/"
+
   call_submission_workflow:
     name: Run
+    needs: infer_task_name
+
     uses: group2022-famcs/playground-for-private-tests/.github/workflows/submission.yaml@master
     with:
       submission_ref: ${{ github.event.pull_request.head.sha }}
+      task_name: ${{ needs.infer_task_name.outputs.task_name }}

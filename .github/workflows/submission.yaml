@@ -5,33 +5,40 @@ on:
       submission_ref:
         required: true
         type: string
+      task_name:
+        required: true
+        type: string
+env:
+  TEST_EXECUTABLE_PATH: builds/default/${{ inputs.task_name }}/test_${{ inputs.task_name }}
 
 jobs:
   build_job:
     name: configure & build
     runs-on: ubuntu-20.04
 
+    env:
+      TASK_NAME: ${{ inputs.task_name }}
+      TEST_TARGET: test_${{ inputs.task_name }}
+
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.submission_ref }}
 
-      - uses: lukka/get-cmake@v.3.23.2
+      - name: Download and cache CMake
+        uses: lukka/get-cmake@v.3.23.2
 
-      - name: Run CMake to build
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: default
-          buildPreset: default
+      - name: Build '${{ env.TASK_NAME }}'
+        run: cmake --preset default && cmake --build --preset default -t "${{ env.TEST_TARGET }}"
 
       - name: Tar artifacts
-        run: tar -cvf test_oracle.tar builds/default/oracle/test_oracle
+        run: tar -cvf build_artifacts.tar "${{ env.TEST_EXECUTABLE_PATH }}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: test_oracle
-          path: test_oracle.tar
+          name: build_artifacts
+          path: build_artifacts.tar
           retention-days: 1
 
   test_job:
@@ -46,14 +53,13 @@ jobs:
     needs: build_job
 
     steps:
-      - name: Download build artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: test_oracle
+          name: build_artifacts
 
       - name: Untar artifacts
-        run: tar -xvf test_oracle.tar
+        run: tar -xvf build_artifacts.tar
 
-      - shell: bash
-        run: |
-          ./builds/default/oracle/test_oracle
+      - name: Test '${{ inputs.task_name }}'
+        run: env -i "./${{ env.TEST_EXECUTABLE_PATH }}"
