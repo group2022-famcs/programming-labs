@@ -7,8 +7,7 @@ REMOTE_NAME = 'student'
 
 
 def infer_task_name_from_directory(dir):
-    canonical_path = os.path.realpath(dir, strict=True)
-    return os.path.basename(canonical_path)
+    return os.path.basename(os.path.realpath(dir))
 
 
 def uncommitted_changes(repo, task_name):
@@ -54,33 +53,30 @@ def main(cwd):
     try:
         task_name = infer_task_name_from_directory(cwd)
         repo = Repo(os.path.dirname(cwd))
-    except OSError as e:
-        print(f'Failed to infer task name: {e}')
-        exit(1)
     except (NoSuchPathError, InvalidGitRepositoryError) as e:
         print('Failed to open your git repository.\n' +
               'Please check you run submit.py inside a task directory.')
-        exit(2)
+        exit(1)
 
     uncommitted_files = uncommitted_changes(repo, task_name)
     if uncommitted_files:
         print('There are uncommitted changes:\n' +
               "\n".join(f' * {file}' for file in uncommitted_files) +
               '\nPlease either commit or stash them.')
-        exit(3)
+        exit(2)
 
     try:
         remote = repo.remote(REMOTE_NAME)
     except ValueError:
         print(f'Remote "{REMOTE_NAME}" does not exist.\n' +
               'Please create it according to the course tutorial.')
-        exit(4)
+        exit(3)
 
     try:
         push_task(remote, task_name)
     except RuntimeError as e:
         print(e)
-        exit(5)
+        exit(4)
 
 
 if __name__ == '__main__':
