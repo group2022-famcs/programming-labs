@@ -8,6 +8,9 @@ on:
       task_name:
         required: true
         type: string
+    secrets:
+      PRIVATE_TESTS_TOKEN:
+        required: true
 env:
   TEST_EXECUTABLE_PATH: builds/default/${{ inputs.task_name }}/test_${{ inputs.task_name }}
 
@@ -27,7 +30,8 @@ jobs:
       - name: Checkout canonical repository
         uses: actions/checkout@v3
         with:
-          repository: group2022-famcs/playground-for-private-tests
+          repository: group2022-famcs/private-tests-holder
+          ssh-key: ${{ secrets.PRIVATE_TESTS_TOKEN }}
           ref: master
           persist-credentials: false
 
