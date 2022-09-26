@@ -21,12 +21,30 @@ jobs:
       TEST_TARGET: test_${{ inputs.task_name }}
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.submission_ref }}
-
       - name: Download and cache CMake
         uses: lukka/get-cmake@v.3.23.2
+
+      - name: Checkout canonical repository
+        uses: actions/checkout@v3
+        with:
+          repository: group2022-famcs/playground-for-private-tests
+          ref: master
+          persist-credentials: false
+
+      - name: Checkout submission
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.submission_ref }}
+          persist-credentials: false
+          path: submission
+
+      - name: "Replace '${{ env.TASK_NAME }}' sources with submission"
+        run: |
+          bash -c 'shopt -s extglob
+          mv \
+          "submission/${{ env.TASK_NAME }}"/!(*_test|_utility).cpp \
+          "submission/${{ env.TASK_NAME }}"/!(*_utility).h \
+          "${{ env.TASK_NAME }}"'
 
       - name: Build '${{ env.TASK_NAME }}'
         run: cmake --preset default && cmake --build --preset default -t "${{ env.TEST_TARGET }}"
