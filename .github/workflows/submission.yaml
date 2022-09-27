@@ -30,7 +30,8 @@ jobs:
       - name: Checkout canonical repository
         uses: actions/checkout@v3
         with:
-          repository: group2022-famcs/private-tests-holder
+          repository: group2022-famcs/playground-for-private-tests
+          submodules: true
           ssh-key: ${{ secrets.PRIVATE_TESTS_TOKEN }}
           ref: master
           persist-credentials: false
@@ -48,6 +49,13 @@ jobs:
           mv \
           "submission/${{ env.TASK_NAME }}"/!(*_test|_utility).cpp \
           "submission/${{ env.TASK_NAME }}"/!(*_utility).h \
+          "${{ env.TASK_NAME }}"'
+
+      - name: "Replace '${{ env.TASK_NAME }}' tests with private tests"
+        run: |
+          bash -c 'shopt -s extglob
+          mv \
+          "private-tests-holder/${{ env.TASK_NAME }}"/*_test.cpp \
           "${{ env.TASK_NAME }}"'
 
       - name: Build '${{ env.TASK_NAME }}'

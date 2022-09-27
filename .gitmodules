@@ -1,0 +1,3 @@
+[submodule "private-tests-holder"]
+	path = private-tests-holder
+	url = git@github.com:group2022-famcs/private-tests-holder.git
