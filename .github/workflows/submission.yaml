@@ -52,11 +52,7 @@ jobs:
           "${{ env.TASK_NAME }}"'
 
       - name: "Replace '${{ env.TASK_NAME }}' tests with private tests"
-        run: |
-          bash -c 'shopt -s extglob
-          mv \
-          "private-tests-holder/${{ env.TASK_NAME }}"/*_test.cpp \
-          "${{ env.TASK_NAME }}"'
+        run: mv "private-tests-holder/${{ env.TASK_NAME }}"/*_test.cpp "${{ env.TASK_NAME }}"
 
       - name: Build '${{ env.TASK_NAME }}'
         run: cmake --preset default && cmake --build --preset default -t "${{ env.TEST_TARGET }}"
