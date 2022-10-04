@@ -2,6 +2,8 @@ name: Submission
 
 on:
   pull_request_target:
+    branches:
+      - "master"
 
 jobs:
   infer_task_name:
