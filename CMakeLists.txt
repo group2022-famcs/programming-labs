@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(playground-for-private-tests)
+project(programming-labs)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -10,6 +10,3 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-
-add_subdirectory(oracle)
-add_subdirectory(adviser)
