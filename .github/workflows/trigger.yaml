@@ -27,4 +27,4 @@ jobs:
       submission_ref: ${{ github.event.pull_request.head.sha }}
       task_name: ${{ needs.infer_task_name.outputs.task_name }}
     secrets:
-      PRIVATE_TESTS_TOKEN: ${{ secrets.PRIVATE_TESTS_TOKEN }}
+      PRIVATE_TESTS_TOKEN: ${{ secrets.PROGRAMMING_LABS_PRIVATE_TOKEN }}
