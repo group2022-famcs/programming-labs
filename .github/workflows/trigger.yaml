@@ -1,4 +1,4 @@
-name: Trigger
+name: Submission
 
 on:
   pull_request_target:
@@ -22,7 +22,7 @@ jobs:
     name: Run
     needs: infer_task_name
 
-    uses: group2022-famcs/programming-labs/.github/workflows/submission.yaml@master
+    uses: group2022-famcs/programming-checker/.github/workflows/submission.yaml@master
     with:
       submission_ref: ${{ github.event.pull_request.head.sha }}
       task_name: ${{ needs.infer_task_name.outputs.task_name }}
