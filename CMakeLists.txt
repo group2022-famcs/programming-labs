@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.23)
 
 project(programming-labs)
 
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -10,6 +11,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Werror")
 
 add_subdirectory(00_test)
 add_subdirectory(lab04)
