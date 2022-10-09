@@ -2,52 +2,52 @@
 #include <gmock/gmock.h>
 #include "declarations.h"
 
-TEST(Task1, Public)
+TEST(Public, Task1)
 {
   ASSERT_EQ(leastMissingDigit(120), 3);
   ASSERT_EQ(leastMissingDigit(0), 1);
 }
 
-TEST(Task2, Public)
+TEST(Public, Task2)
 {
   std::vector<int> a{1, 0, 0, 2, 0, 3, 0};
   filterArray(a);
   ASSERT_THAT(a, ::testing::ElementsAre(1, 2, 3));
 }
 
-TEST(Task3, Public)
+TEST(Public, Task3)
 {
   std::vector<int> a{0, 1, 2, 3};
   reverseArray(a);
   ASSERT_THAT(a, ::testing::ElementsAre(3, 2, 1, 0));
 }
 
-TEST(Task4, Public)
+TEST(Public, Task4)
 {
   ASSERT_EQ(numberOfCommonElements({0, 2, 3, 5, 11}, {2, 4, 5, 6}), 2);
 }
 
-TEST(Task5, Public)
+TEST(Public, Task5)
 {
   ASSERT_TRUE(isPermutation({2, 1, 3}));
   ASSERT_FALSE(isPermutation({0, 3, 1, 2}));
 }
 
-TEST(Task6, Public)
+TEST(Public, Task6)
 {
   std::vector<int> a{1, 2, 3, 4, 5, 6};
   cyclicShift(a, 2);
   ASSERT_THAT(a, ::testing::ElementsAre(3, 4, 5, 6, 1, 2));
 }
 
-TEST(Task7, Public)
+TEST(Public, Task7)
 {
   std::vector<int> a{0, 2, -5, 4, -6, 3, 0};
   partitionBySign(a);
   ASSERT_THAT(a, ::testing::ElementsAre(-5, -6, 0, 0, 2, 4, 3));
 }
 
-TEST(Task8, Public)
+TEST(Public, Task8)
 {
   const auto result = multiplyMatrices(
     {{1, 0, 2}},
