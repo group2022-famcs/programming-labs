@@ -13,6 +13,8 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 
+include(cmake/ClangTidyCheck.cmake)
+
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Werror")
 
 add_subdirectory(00_test)
