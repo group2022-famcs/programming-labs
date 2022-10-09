@@ -18,4 +18,4 @@ include(cmake/ClangTidyCheck.cmake)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Werror")
 
 add_subdirectory(00_test)
-add_subdirectory(lab04)
+add_subdirectory(04_arrays)
