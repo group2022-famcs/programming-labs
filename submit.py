@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+
 import os
 import re
 
 from git import Repo, NoSuchPathError, InvalidGitRepositoryError, PushInfo
 
-REMOTE_NAME = 'student'
+REMOTE_NAME = 'origin'
 
 
 def infer_task_name_from_directory(dir):
