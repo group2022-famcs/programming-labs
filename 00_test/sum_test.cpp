@@ -2,5 +2,5 @@
 #include <gtest/gtest.h>
 
 TEST(Public, Sum) {
-  ASSERT_EQ(sum(1, -1), 0);
+    ASSERT_EQ(sum(1, -1), 0);
 }

@@ -15,7 +15,5 @@ void cyclicShift(std::vector<int>&, int n);
 
 void partitionBySign(std::vector<int>&);
 
-std::vector<std::vector<int>> multiplyMatrices(
-  const std::vector<std::vector<int>>&,
-  const std::vector<std::vector<int>>&
-);
+std::vector<std::vector<int>>
+multiplyMatrices(const std::vector<std::vector<int>>&, const std::vector<std::vector<int>>&);
