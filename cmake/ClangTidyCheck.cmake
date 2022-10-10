@@ -1,4 +1,4 @@
-option(CLANG_TIDY_CHECK "Run clang-tidy before the build" ON)
+option(CLANG_TIDY_CHECK "Run clang-tidy before the build")
 
 find_program(CLANG_TIDY_EXE
     NAMES
