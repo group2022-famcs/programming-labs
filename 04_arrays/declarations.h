@@ -1,4 +1,7 @@
 #pragma once
+
+#include <not_implemented.h>
+
 #include <vector>
 
 int leastMissingDigit(int);

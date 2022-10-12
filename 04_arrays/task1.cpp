@@ -1,4 +1,6 @@
+#include "declarations.h"
+
 int leastMissingDigit(int n) {
     // Your code goes here
-    return 0;
+    NOT_IMPLEMENTED(n)
 }

@@ -8,7 +8,7 @@ on:
 jobs:
   infer_task_name:
     name: Extract task name from branch name
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     outputs:
       task_name: ${{ steps.extractor.outputs.substring }}
     steps:
