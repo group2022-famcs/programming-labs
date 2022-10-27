@@ -30,3 +30,4 @@ include_directories(tools/util)
 
 add_subdirectory(00_test)
 add_subdirectory(04_arrays)
+add_subdirectory(06_big_integer)
