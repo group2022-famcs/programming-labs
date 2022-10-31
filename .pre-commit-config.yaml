@@ -11,3 +11,9 @@ repos:
         args: [--branch, master]
       - id: check-merge-conflict
         name: 'Check for unresolved merge conflicts'
+
+  - repo: https://github.com/Elentary/mirrors-run-clang-format
+    rev: v14.0.6
+    hooks:
+    - id: run-clang-format
+      name: 'Check formatting'
