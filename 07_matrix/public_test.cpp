@@ -9,7 +9,7 @@ using Vector2D = std::vector<std::vector<int>>;
 TEST(Public, Construction) {
     const Matrix a1(2, 2);
     const Matrix a2(2, 2, 0);
-    const Matrix copy1 = a1;
+    [[maybe_unused]] const Matrix copy1 = a1;
     const Matrix copy2(a1.data());
     EXPECT_ANY_THROW(Matrix({{1, 0}, {0}}));
 }
