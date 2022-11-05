@@ -1,8 +1,8 @@
 // Tests added to this file won't run on GitHub
 
 #include "matrix.h"
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using Vector2D = std::vector<std::vector<int>>;
 
