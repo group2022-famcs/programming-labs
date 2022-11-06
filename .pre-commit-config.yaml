@@ -17,3 +17,4 @@ repos:
     hooks:
     - id: run-clang-format
       name: 'Check formatting'
+      args: ['--color', 'always']
