@@ -14,7 +14,7 @@ TEST(Public, Construction) {
     EXPECT_ANY_THROW(Matrix({{1, 0}, {0}}));
 }
 
-TEST(Public, Elements) {
+TEST(Public, ElementsAccess) {
     Matrix mut(2, 2);
     mut.set(0, 1, 4);
     mut.set(1, 0, -1);
