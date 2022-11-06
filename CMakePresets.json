@@ -15,7 +15,9 @@
         "name": "CI",
         "inherits": "default",
         "cacheVariables": {
-          "CLANG_TIDY_CHECK": "ON"
+          "CLANG_TIDY_CHECK": "ON",
+          "CMAKE_C_COMPILER": "clang",
+          "CMAKE_CXX_COMPILER": "clang++"
         }
       }
     ],
