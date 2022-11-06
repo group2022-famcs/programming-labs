@@ -10,12 +10,24 @@
         "name": "default",
         "generator": "Ninja",
         "binaryDir": "${sourceDir}/builds/${presetName}"
+      },
+      {
+        "name": "CI",
+        "inherits": "default",
+        "cacheVariables": {
+          "CLANG_TIDY_CHECK": "ON"
+        }
       }
     ],
     "buildPresets": [
       {
         "name": "default",
         "configurePreset": "default"
+      },
+      {
+        "name": "CI",
+        "inherits": "default",
+        "configurePreset": "CI"
       }
     ],
     "testPresets": [
