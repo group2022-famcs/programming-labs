@@ -1,2 +1,5 @@
 # Exclude third-party libs
 ./07_matrix/helpers/stb_image*
+
+# Exclude json files
+**/*.json
