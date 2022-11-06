@@ -36,7 +36,9 @@ void writeGrayscaleImage(const std::vector<std::vector<int>>& image, const std::
     );
     std::vector<uint8_t> imageVector(height * width);
     for (size_t i = 0; i < imageVector.size(); ++i) {
-        imageVector[i] = image[i / width][i % width];
+        int value = image[i / width][i % width];
+        assert(0 <= value && value <= 255);
+        imageVector[i] = static_cast<uint8_t>(value);
     }
     stbi_write_jpg(
         filename.c_str(), static_cast<int>(width), static_cast<int>(height), 1, imageVector.data(),
@@ -85,7 +87,9 @@ void writeRgbImage(
     for (size_t i = 0; i < imageVector.size(); ++i) {
         auto row = i / 3 / width;
         auto offset = i - row * 3 * width;
-        imageVector[i] += image[row][offset / 3][offset % 3];
+        int value = image[row][offset / 3][offset % 3];
+        assert(0 <= value && value <= 255);
+        imageVector[i] += static_cast<uint8_t>(value);
     }
     stbi_write_jpg(
         filename.c_str(), static_cast<int>(width), static_cast<int>(height), 3, imageVector.data(),
