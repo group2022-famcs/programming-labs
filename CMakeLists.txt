@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.23)
 
 project(programming-labs)
 
+include(cmake/BuildConfig.cmake)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -12,7 +14,6 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 include(cmake/ClangTidyCheck.cmake)
-include(cmake/BuildConfig.cmake)
 
 include_directories(tools/util)
 
