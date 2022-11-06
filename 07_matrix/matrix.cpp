@@ -22,7 +22,7 @@ int Matrix::columns() const {
     NOT_IMPLEMENTED(0);
 }
 
-std::vector<std::vector<int>> Matrix::data() const {
+const std::vector<std::vector<int>>& Matrix::data() const {
     NOT_IMPLEMENTED(0);
 }
 

@@ -11,7 +11,7 @@ public:
 
     int rows() const;
     int columns() const;
-    std::vector<std::vector<int>> data() const;
+    const std::vector<std::vector<int>>& data() const;
 
     void resize(int n, int m);
     void set(int i, int j, int value);
