@@ -1,3 +1,6 @@
+// NOLINTBEGIN
+// clang-format off
+
 /* stb_image - v2.27 - public domain image loader - http://nothings.org/stb
                                   no warranty implied; use at your own risk
 
@@ -122,8 +125,6 @@ RECENT REVISION HISTORY:
   80% of merge conflicts on stb PRs are due to people adding their name at the end
   of the credits.
 */
-
-// NOLINTBEGIN
 
 #ifndef STBI_INCLUDE_STB_IMAGE_H
 #define STBI_INCLUDE_STB_IMAGE_H
