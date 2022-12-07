@@ -6,8 +6,42 @@ on:
       - "master"
 
 jobs:
+  limit_runs:
+    name: Limit runs
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+      MAX_RUNS_PER_DAY: 4
+      RUN_ID: ${{ github.run_id }}
+    steps:
+      - name: Check the ability to run
+        run: |
+          curl \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$OWNER/$REPO/actions/runs?event=pull_request_target&status=completed&created=>`date --date='day ago' -Iseconds`" \
+            | jq '.workflow_runs | map({id, name, path, display_title, run_number, status, conclusion, created_at, run_attempt, event})' > runs.json
+
+          echo "Today's runs:"
+          jq < runs.json
+
+          if [ $(jq < runs.json 'map(select(.conclusion != "cancelled")) | length') -ge $MAX_RUNS_PER_DAY ]; then
+            echo "Too much runs for today! Cancelling"
+            curl \
+              -X POST \
+              -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/repos/$OWNER/$REPO/actions/runs/$RUN_ID/cancel"
+            false
+          fi
+
   infer_task_name:
     name: Extract task name from branch name
+    needs: limit_runs
     runs-on: ubuntu-22.04
     outputs:
       task_name: ${{ steps.extractor.outputs.substring }}
