@@ -6,7 +6,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang"
         OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -Wpedantic")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-sign-compare -Wno-missing-field-initializers")
-    if((NOT ${WIN_32}) OR (${CMAKE_SYSTEM} MATCHES ".*WSL2.*"))
+    if((NOT DEFINED WIN_32) OR (NOT ${WIN_32}) OR (${CMAKE_SYSTEM} MATCHES ".*WSL2.*"))
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined,address,float-divide-by-zero")
     endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
