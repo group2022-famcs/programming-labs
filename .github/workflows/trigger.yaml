@@ -6,17 +6,19 @@ on:
       - "master"
 
 jobs:
-  limit_runs:
-    name: Limit runs
+  prepare:
+    name: Prepare for running
     runs-on: ubuntu-22.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OWNER: ${{ github.repository_owner }}
-      REPO: ${{ github.event.repository.name }}
-      MAX_RUNS_PER_DAY: 4
-      RUN_ID: ${{ github.run_id }}
+    outputs:
+      task_name: ${{ steps.extractor.outputs.substring }}
     steps:
       - name: Check the ability to run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          MAX_RUNS_PER_DAY: 4
+          RUN_ID: ${{ github.run_id }}
         run: |
           curl \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
@@ -39,14 +41,8 @@ jobs:
             false
           fi
 
-  infer_task_name:
-    name: Extract task name from branch name
-    needs: limit_runs
-    runs-on: ubuntu-22.04
-    outputs:
-      task_name: ${{ steps.extractor.outputs.substring }}
-    steps:
-      - uses: bhowell2/github-substring-action@v1.0.0
+      - name: Extract task name from branch name
+        uses: bhowell2/github-substring-action@v1.0.0
         id: extractor
         with:
           value: ${{ github.event.pull_request.head.ref }}
@@ -54,11 +50,11 @@ jobs:
 
   call_submission_workflow:
     name: Run
-    needs: infer_task_name
+    needs: prepare
 
     uses: group2022-famcs/programming-checker/.github/workflows/submission.yaml@master
     with:
       submission_ref: ${{ github.event.pull_request.head.sha }}
-      task_name: ${{ needs.infer_task_name.outputs.task_name }}
+      task_name: ${{ needs.prepare.outputs.task_name }}
     secrets:
       PRIVATE_TESTS_TOKEN: ${{ secrets.PROGRAMMING_LABS_PRIVATE_TOKEN }}
